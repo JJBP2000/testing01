@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, of } from 'rxjs';
-import { URL_SERVICIOS } from 'src/app/config/config';
+import { URL_FROTEND, URL_SERVICIOS } from 'src/app/config/config';
 
 @Injectable({
   providedIn: 'root'
@@ -17,18 +17,20 @@ export class AuthService {
     public http: HttpClient,
     public router: Router,
 
-  )  { }
+  )  { 
+    this.initAuth();
+  }
 
   initAuth(){
     if(localStorage.getItem("token")){
-      this.user = localStorage.getItem("user");
+      this.user = localStorage.getItem("user") ? JSON.parse( localStorage.getItem("user") ?? '' ) : null;
       this.token = localStorage.getItem("token");
     }
 
   }
 
   login(email:string,password:string){
-    let URL = URL_SERVICIOS+"/auth/login";
+    let URL = URL_SERVICIOS+"/auth/login_tienda";
     return this.http.post(URL,{email:email, password:password}).pipe(
       map((auth: any) => {
         console.log(auth);
@@ -54,12 +56,19 @@ export class AuthService {
     return false;
   }
 
-  register(){
-    
+  register(data:any){
+    let URL = URL_SERVICIOS + "/auth/register";
+    return this.http.post(URL, data);
   }
 
   logout(){
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    //this.router.navigateByUrl("auth/login"); esto es para una ruta reactiva
 
+    setTimeout(() => {
+      location.href = URL_FROTEND+"/auth/login"; //es mejor así porque lo redirigo a una ruta normal
+    }, 50);
   }
 
   

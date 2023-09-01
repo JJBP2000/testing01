@@ -537,6 +537,8 @@ function HOMEINIT($, undefined) {
             });
         },
 
+        
+
 
         pricingPlan: function () {
             var mainPlan = $('.rbt-pricing-area');

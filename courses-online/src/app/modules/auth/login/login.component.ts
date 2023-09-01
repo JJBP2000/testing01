@@ -14,6 +14,13 @@ export class LoginComponent implements OnInit{
   //auth-Login
   email: any = null;
   password: any = null;
+
+  //auth-register
+  email_register:any = null;
+  password_register:any = null;
+  name:any = null;
+  surname:any = null;
+  password_confirmation:any = null;
   constructor(
     public authService: AuthService,
     public router: Router,
@@ -47,6 +54,31 @@ export class LoginComponent implements OnInit{
         alert("LAS CREDENCIALES NO EXISTEN");
       }
     }) 
-    
+
+  }
+
+  register(){
+    if(!this.email_register || !this.name || !this.surname || !this.password_register || !this.password_confirmation){
+      alert("TODOS LOS CAMPOS SON NECESARIOS");
+      return;
+    }
+    if(this.password_register != this.password_confirmation){
+      alert("LAS CONTRASEÑAS SON DIFERENTES");
+      return;
+    }
+    let data = {
+      email: this.email_register,
+      name: this.name,
+      surname: this.surname,
+      password: this.password_register,
+
+    }
+    this.authService.register(data).subscribe((resp:any) => {
+      console.log(resp);
+      alert("EL USUARIO SE HA CREADO CORRECTAMENTE");
+    },error => {
+      alert("LAS CREDENCIALES NO SON CORRECTAS O YA EXISTEN");
+      console.log(error);
+    } )
   }
 }

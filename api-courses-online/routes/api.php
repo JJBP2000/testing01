@@ -19,13 +19,14 @@ use App\Http\Controllers\AuthController;
     //return $request->user();
 //});
 Route::group([
- 
+
     'middleware' => 'api',
     'prefix' => 'auth'
- 
+
 ], function ($router) {
     Route::post('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/login_tienda', [AuthController::class, 'login_tienda']);
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/refresh', [AuthController::class, 'refresh'])->name('refresh');
     Route::post('/me', [AuthController::class, 'me'])->name('me');
