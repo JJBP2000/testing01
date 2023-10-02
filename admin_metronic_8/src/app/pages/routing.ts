@@ -39,6 +39,21 @@ const Routing: Routes = [
       import('../modules/apps/chat/chat.module').then((m) => m.ChatModule),
   },
   {
+    path: 'users',
+    loadChildren: () =>
+      import('../modules/user/user.module').then((m) => m.UserModule),
+  },
+  {
+    path: 'categorias',
+    loadChildren: () =>
+      import('../modules/categories/categories.module').then((m) => m.CategoriesModule),
+  },
+  {
+    path: 'cursos',
+    loadChildren: () =>
+      import('../modules/course/course.module').then((m) => m.CourseModule),
+  },
+  {
     path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full',

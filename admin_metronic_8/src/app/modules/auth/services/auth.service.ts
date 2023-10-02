@@ -33,6 +33,9 @@ export class AuthService implements OnDestroy {
     this.currentUserSubject.next(user);
   }
 
+  token:any = null;
+  user:any = null;
+
   constructor(
     private authHttpService: AuthHTTPService,
     private router: Router, 
@@ -132,6 +135,8 @@ export class AuthService implements OnDestroy {
         return undefined;
       }
 
+      this.token = localStorage.getItem("token");
+      this.user = JSON.parse(lsValue);
       const authData = JSON.parse(lsValue);
       return authData;
     } catch (error) {

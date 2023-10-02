@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Mockery\Matcher\Type;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
@@ -19,12 +20,20 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = [
         'name',
-        'surname',
+        "surname",
         'email',
         'password',
 
-        'state',//1 es activo y 2 es desactivo
-        'type_user',//1 es tipo cliente y 2 tipo admin
+        "avatar",
+
+        "role_id",
+
+        "state",//1 es activo y 2 es desactivo
+        "type_user",//1 es tipo cliente y 2 tipo admin
+
+        "is_instructor",
+        "profesion",
+        "description"
     ];
 
     /**
@@ -64,5 +73,20 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);        
+    }
+
+    function scopeFilterAdvance($query,$search,$state){
+        if($search){
+            $query->where("email","like", "%".$search."%");
+        }
+        if($state){
+            $query->where("state",$state);
+        }
+        return $query;
     }
 }

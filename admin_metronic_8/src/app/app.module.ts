@@ -17,6 +17,10 @@ import { FakeAPIService } from './_fake/fake-api.service';
 import { CKEditorModule } from 'ckeditor4-angular';
 
 import { ToastNotificationsModule } from 'ngx-toast-notifications';
+import { CourseAddComponent } from './modules/course/course-add/course-add.component';
+import { CourseEditComponent } from './modules/course/course-edit/course-edit.component';
+import { CourseDeleteComponent } from './modules/course/course-delete/course-delete.component';
+import { CourseListsComponent } from './modules/course/course-lists/course-lists.component';
 
 function appInitializer(authService: AuthService) {
   return () => {
@@ -28,7 +32,7 @@ function appInitializer(authService: AuthService) {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, CourseAddComponent, CourseEditComponent, CourseDeleteComponent, CourseListsComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

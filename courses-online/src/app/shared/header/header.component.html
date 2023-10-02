@@ -18,7 +18,7 @@
                                         <a href="#"><i class="fab fa-facebook-square"></i>1k <span class="d-none d-xxl-block">Seguidores</span></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="feather-phone"></i>+502 4194 9127</a>
+                                        <a href="tel:41949127"><i class="feather-phone"></i>+502 4194 9127</a>
                                     </li>
                                 </ul>
                             </div>
@@ -32,7 +32,7 @@
                                     <div class="inner">
                                         <div class="content">
                                             <span class="rbt-badge variation-02 bg-color-primary color-white radius-round">Oferta especial</span>
-                                            <span class="news-text"><img src="assets/images/icons/hand-emojji.svg" alt="Hand Emojji Images"> Gran oferta del 95% de descuento</span>
+                                            <span class="news-text"><img src="assets/images/icons/hand-emojji.svg" alt="Hand Emojji Images"> Gran oferta del 65% de descuento</span>
                                         </div>
                                     </div>
                                 </div>
@@ -239,7 +239,7 @@
                                                             <h3 class="rbt-short-title">Título de Curso</h3>
                                                             <ul class="rbt-vertical-nav-list-wrapper">
                                                                 <li><a href="#">Fotografía</a></li>
-                                                                <li><a href="#">Inglq</a></li>
+                                                                <li><a href="#">Ingles</a></li>
                                                                 <li><a href="#">Matemática</a></li>
                                                             </ul>
                                                             <div class="read-more-btn">
@@ -295,10 +295,10 @@
                                                 <div class="demo-single">
                                                     <div class="inner">
                                                         <div class="thumbnail">
-                                                            <a href="01-main-demo.html"><img src="assets/images/splash/demo/h1.jpg" alt="Demo Images"></a>
+                                                            <a  [routerLink]="[ '/' ]"><img src="assets/images/splash/demo/h1.jpg" alt="Demo Images"></a>
                                                         </div>
                                                         <div class="content">
-                                                            <h4 class="title"><a href="01-main-demo.html">Inicio <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                            <h4 class="title"><a  [routerLink]="[ '/' ]">Inicio <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -310,10 +310,10 @@
                                                 <div class="demo-single">
                                                     <div class="inner">
                                                         <div class="thumbnail">
-                                                            <a href="12-marketplace.html"><img src="assets/images/splash/demo/h12.jpg" alt="Demo Images"></a>
+                                                            <a [routerLink]="[ 'marketplace' ]"><img src="assets/images/splash/demo/h12.jpg" alt="Demo Images"></a>
                                                         </div>
                                                         <div class="content">
-                                                            <h4 class="title"><a href="12-marketplace.html">Marketplace <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                            <h4 class="title"><a [routerLink]="[ 'marketplace' ]">Marketplace <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -503,12 +503,20 @@
                                                 <div class="demo-single">
                                                     <div class="inner">
                                                         <div class="thumbnail">
+                                                            <a href="#"><img src="assets/images/splash/demo/coming-soon-1.png" alt="Demo Images"></a>
+                                                        </div>
+                                                        <div class="content">
+                                                            <h4 class="title"><a href="#">Proximamente <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                        </div>
+                                                    </div>
+                                                   <!--  <div class="inner">
+                                                        <div class="thumbnail">
                                                             <a href="02-course-school.html"><img src="assets/images/splash/demo/h2.jpg" alt="Demo Images"></a>
                                                         </div>
                                                         <div class="content">
                                                             <h4 class="title"><a href="02-course-school.html">Escuela Online <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                             <!-- End Single Demo  -->
@@ -1095,7 +1103,7 @@
                     </ul>
   
                     <div class="rbt-btn-wrapper d-none d-xl-block">
-                        <a class="rbt-btn rbt-marquee-btn marquee-auto btn-border-gradient radius-round btn-sm hover-transform-none" href="#">
+                        <a class="rbt-btn rbt-marquee-btn marquee-auto btn-border-gradient radius-round btn-sm hover-transform-none"  [routerLink]="[ '/auth/login' ]">
                             <span data-text="Inscribete">Inscribete</span>
                         </a>
                     </div>
