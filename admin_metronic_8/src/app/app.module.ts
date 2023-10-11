@@ -32,7 +32,7 @@ function appInitializer(authService: AuthService) {
 }
 
 @NgModule({
-  declarations: [AppComponent, CourseAddComponent, CourseEditComponent, CourseDeleteComponent, CourseListsComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

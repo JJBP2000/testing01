@@ -15,6 +15,7 @@ class CourseGResource extends JsonResource
     public function toArray($request)
     {
         return [
+            "id" => $this->resource->id,
             "title" => $this->resource->title,
             "subtitle" => $this->resource->subtitle,
             "slug" => $this->resource->slug,
@@ -33,9 +34,9 @@ class CourseGResource extends JsonResource
             "precio_gt" => $this->resource->precio_gt,
             "user_id" => $this->resource->user_id,
             "user" => [
-                "id" => $this->resource->user->id,
-                "full_name" => $this->resource->user->name.' '.$this->resource->user->surname,
-                "email" => $this->resource->user->email,
+                "id" => $this->resource->instructor->id,
+                "full_name" => $this->resource->instructor->name.' '.$this->resource->instructor->surname,
+                "email" => $this->resource->instructor->email,
             ],
             "level" => $this->resource->level,
             "idioma" => $this->resource->idioma,

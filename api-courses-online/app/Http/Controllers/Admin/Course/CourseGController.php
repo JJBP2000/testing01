@@ -7,6 +7,8 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Course\Course;
 use App\Models\Course\Categorie;
+use Owenoj\LaravelGetId3\GetId3;
+use Vimeo\Laravel\Facades\Vimeo;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\Course\CourseGResource;
@@ -26,7 +28,7 @@ class CourseGController extends Controller
         //se hace el scope para hacer filtros avanzados con el usuario administrador
 
         //filterAdvance($search,$state)->
-        $courses = Course::orderBy("id","desc")->get();
+        $courses = Course::filterAdvance($search,$state)->orderBy("id","desc")->get();
 
         return response()->json([
             "courses" => CourseGCollection::make($courses),
@@ -70,16 +72,44 @@ class CourseGController extends Controller
      */
     public function store(Request $request)
     {
+        $is_exits = Course::where("title",$request->title)->first();
+        if($is_exits){
+            return response()->json(["message" => 403, "message_text" => "YA EXISTE UN CURSO CON ESTE TÍTULO" ]);
+        }
         if($request->hasFile("portada")){
             $path = Storage::putFile("courses",$request->file("portada"));
             $request ->request->add(["imagen" => $path]);
         }
         $request->request->add(["slug" => Str::slug($request->title)]);
-        $request->request->add(["requirements" => json_encode($request->requirements)]);
-        $request->request->add(["who_is_it_for" => json_encode($request->who_is_it_for)]);
+        $request->request->add(["requirements" => json_encode(explode(",",$request->requirements))]);
+        $request->request->add(["who_is_it_for" => json_encode(explode(",",$request->who_is_it_for) )]); 
         $course = Course::create($request->all());
+        //"course" =>CourseGResource::make($course)
+        return response()->json(["message" => 200 ]);
+    }
 
-        return response()->json(["course" =>CourseGResource::make($course) ]);
+    public function upload_video(Request $request,$id) 
+    {
+        $time = 0;
+
+        //instantiate class with file
+        $track = new GetId3($request->file('video'));
+
+        //get playtime
+        $time = $track->getPlaytimeSeconds();
+
+        $response = Vimeo::upload($request->file('video'));
+
+
+        $course = Course::findOrFail($id);
+        error_log(json_encode(explode("/",$response)));
+        $vimeo_id = explode("/",$response)[2];
+
+        $course->update(["vimeo_id" => $vimeo_id ,"time" => date("H:i:s",$time)]);
+
+        return response()->json([
+            "link_video" => "https://player.vimeo.com/video/".$vimeo_id,
+        ]);
     }
 
     /**
@@ -90,7 +120,11 @@ class CourseGController extends Controller
      */
     public function show($id)
     {
-        //
+        $course = Course::findOrFail($id);
+
+        return response()->json([
+            "course" => CourseGResource::make($course),
+        ]);
     }
 
     /**
@@ -113,6 +147,10 @@ class CourseGController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $is_exits = Course::where("id","<>",$id)->where("title",$request->title)->first();
+        if($is_exits){
+            return response()->json(["message" => 403, "message_text" => "YA EXISTE UN CURSO CON ESTE TÍTULO" ]);
+        }
         $course = Course::findOrFail($id);
         if($request->hasFile("portada")){
             if($course->imagen){
@@ -122,9 +160,8 @@ class CourseGController extends Controller
             $request ->request->add(["imagen" => $path]);
         }
         $request->request->add(["slug" => Str::slug($request->title)]);
-        $request->request->add(["requirements" => json_encode($request->requirements)]);
-        $request->request->add(["who_is_it_for" => json_encode($request->who_is_it_for)]);
-        //$course = Course::findOrFail($id);
+        $request->request->add(["requirements" => json_encode(explode(",",$request->requirements))]);
+        $request->request->add(["who_is_it_for" => json_encode(explode(",",$request->who_is_it_for) )]); 
         $course->update($request->all());
 
         return response()->json(["categorie" =>CourseGResource::make($course) ]);

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../service/course.service';
 import { Toaster } from 'ngx-toast-notifications';
+import { CKEditor4 } from 'ckeditor4-angular';
 
 @Component({
   selector: 'app-course-add',
@@ -22,6 +23,18 @@ export class CourseAddComponent implements OnInit {
   requirements:any = [];
   text_what_is_for:any = null;
   what_is_fors:any = [];
+
+  title:string = '';
+  subtitle:string = '';
+  precio_usd:number = 0;
+  precio_gt:number = 0;
+  description:any = "<p>Hello, world!</p>";
+  categorie_id:any = null;
+  sub_categorie_id:any = null;
+  user_id:any = null;
+  level:any = null;
+  idioma:any = null;
+  // who_is_it_for
   constructor(
     public courseService: CourseService,
     public toaster: Toaster,
@@ -49,6 +62,7 @@ export class CourseAddComponent implements OnInit {
       return;
     }
     this.requirements.push(this.text_requirements);
+    this.text_requirements = null;
   }
   addWhatIsFor(){
     if(!this.text_what_is_for){
@@ -56,10 +70,69 @@ export class CourseAddComponent implements OnInit {
       return;
     }
     this.what_is_fors.push(this.text_what_is_for);
+    this.text_what_is_for = null;
   }
 
+  removeRequirement(index:number){
+    this.requirements.splice(index,1);
+  }
+  removeWhatIsFor(index:number){
+    this.what_is_fors.splice(index,1);
+  }
+  public onChange(event: CKEditor4.EventInfo) {
+    this.description = event.editor.getData();
+  }
   save(){
+    console.log(this.description);
+    if(!this.title ||
+      !this.subtitle ||
+      !this.precio_usd ||
+      !this.precio_gt ||
+      !this.categorie_id ||
+      !this.sub_categorie_id){
+        this.toaster.open({text: 'SE NECESITA LLENAR LOS CAMPOS DEL FORMULARIO', caption: 'VALIDACION', type: 'info'});
+        return;
+      }
 
+    let formData = new FormData();
+    formData.append('title',this.title);
+    formData.append('subtitle',this.subtitle);
+    formData.append('precio_usd',this.precio_usd+"");
+    formData.append('precio_gt',this.precio_gt+"");
+    formData.append('categorie_id',this.categorie_id);
+    formData.append('sub_categorie_id',this.sub_categorie_id); 
+    formData.append('description',this.description);
+    formData.append('level',this.level);
+    formData.append('idioma',this.idioma);
+    formData.append('user_id',this.user_id);
+    formData.append('portada',this.FILE_PORTADA);
+    formData.append('requirements',this.requirements);
+    formData.append('who_is_it_for',this.what_is_fors);
+
+    this.courseService.registerCourses(formData).subscribe((resp:any) => {
+      console.log(resp);
+      if(resp.message == 403){
+        this.toaster.open({text: resp.message_text, caption: 'VALIDACION', type: 'danger'});
+        return;
+      }else{
+        this.toaster.open({text: 'EL CURSO SE HA CREADO CON EXITO', caption: 'SUCCESS', type: 'primary'});
+        this.title = '';
+        this.subtitle = '';
+        this.precio_usd = 0;
+        this.precio_gt = 0;
+        this.categorie_id = null;
+        this.sub_categorie_id = null;
+        this.description = null;
+        this.level = null;
+        this.idioma = null;
+        this.user_id = null;
+        this.FILE_PORTADA = null;
+        this.requirements = [];
+        this.what_is_fors = [];
+        this.IMAGEN_PREVISUALIZA = null;
+        return;
+      }
+    });
   }
   processFile($event:any){
     if ($event.target.files[0].type.indexOf("image") < 0) {

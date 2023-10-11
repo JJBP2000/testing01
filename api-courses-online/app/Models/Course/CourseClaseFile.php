@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class CourseFile extends Model
+class CourseClaseFile extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -31,5 +31,13 @@ class CourseFile extends Model
     {
         date_default_timezone_set("America/Guatemala");
         $this->attributes["updated_at"] = Carbon::now();
+    }
+    
+    public function getSizeAttribute($size)
+    {
+        $size = (int) $size;
+        $base = log($size) / log(1024);//0.5 // 2.2 // 1.5
+        $suffixes = array(' bytes', ' KB', ' MB', ' GB', ' TB');
+        return round(pow(1024, $base - floor($base)), 2) . $suffixes[floor($base)];
     }
 }
