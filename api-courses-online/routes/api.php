@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin\Coupon\CouponController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Tienda\HomeController;
+use App\Http\Controllers\Admin\Coupon\CouponController;
 use App\Http\Controllers\Admin\Course\ClaseGController;
 use App\Http\Controllers\Admin\Course\CourseGController;
 use App\Http\Controllers\Admin\Course\SeccionGController;
@@ -65,4 +66,10 @@ Route::group([
 
     Route::resource('/discount',DiscountController::class);
 });
+
+Route::group(["prefix" => "ecommerce"],function($router){
+    Route::get("home",[HomeController::class,"home"]);
+    Route::get("course-detail/{slug}",[HomeController::class,"course_detail"]);
+});
+
 

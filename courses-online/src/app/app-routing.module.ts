@@ -10,6 +10,11 @@ export const routes: Routes = [
     loadChildren:() => import("./modules/home/home.module").then(m => m.HomeModule),//Carga de módulos y apuntador al archivo
   },
   {
+    path: '',
+    //canActivate: [AuthGuard],
+    loadChildren:() => import("./modules/tienda-guest/tienda-guest.module").then(m => m.TiendaGuestModule),//Carga de módulos y apuntador al archivo
+  },
+  {
     path: 'auth',
     loadChildren:() => import("./modules/auth/auth.module").then(m => m.AuthModule),//Carga de módulos y apuntador al archivo
   },

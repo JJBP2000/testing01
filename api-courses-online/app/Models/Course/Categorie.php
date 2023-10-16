@@ -3,9 +3,10 @@
 namespace App\Models\Course;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Discount\DiscountCategorie;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Categorie extends Model
 {
@@ -38,6 +39,15 @@ class Categorie extends Model
     public function father()
     {
         return $this->belongsTo(Categorie::class,"categorie_id");
+    }
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+
+    public function discount_categories()
+    {
+        return $this->hasMany(DiscountCategorie::class);
     }
 
     function scopeFilterAdvance($query,$search,$state){
