@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Ecommerce\LandingCourse;
 
+
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
