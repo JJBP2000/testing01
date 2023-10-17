@@ -4,7 +4,9 @@ namespace App\Models\Course;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Course\Categorie;
 use Illuminate\Support\Facades\Log;
+use App\Models\Course\CourseSection;
 use App\Models\Discount\DiscountCourse;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -82,11 +84,7 @@ class Course extends Model
             // Comprobar si $discount_course y las propiedades anidadas existen y no son nulas
             if (
                 $discount_course && 
-                $discount_course->discount && 
-                property_exists($discount_course->discount, 'type_campaing') && 
-                property_exists($discount_course->discount, 'state') &&
-                $discount_course->discount->type_campaing == 1 && 
-                $discount_course->discount->state == 1
+                $discount_course->discount
             ) {
                 if (Carbon::now()->between($discount_course->discount->start_date, Carbon::parse($discount_course->discount->end_date)->addDays(1))) {
                     // EXISTE UNA CAMPAÑA DE DESCUENTO CON EL CURSO

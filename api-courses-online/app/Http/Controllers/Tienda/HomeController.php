@@ -35,7 +35,7 @@ class HomeController extends Controller
             ]);
         }
 
-        date_default_timezone_set("America/Lima");
+        date_default_timezone_set("America/Guatemala");
         $DESCOUNT_BANNER = Discount::where("type_campaing",3)->where("state",1)
                             ->where("start_date","<=",today())
                             ->where("end_date",">=",today())
