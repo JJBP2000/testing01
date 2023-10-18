@@ -687,7 +687,7 @@
                                                 <span class="current-price">{{ getTotalPriceCourse(COURSE) }} USD</span>
                                                 <span class="off-price" *ngIf="COURSE.discount_g">{{ COURSE.precio_usd }}</span>
                                             </div>
-                                            <a class="rbt-btn-link left-icon" [attr.href]="'landing-curso/'+COURSE.slug"><i class="feather-shopping-cart"></i> Add To Cart</a>
+                                            <a class="rbt-btn-link left-icon" href="#" onclick="return false;" (click)="addCart()"><i class="feather-shopping-cart"></i>Añadir a la cesta</a>
                                         </div>
                                     </div>
                                 </div>
@@ -730,8 +730,8 @@
                             </div>
 
                             <div class="add-to-card-button mt--15">
-                                <a class="rbt-btn btn-gradient icon-hover w-100 d-block text-center" href="#">
-                                    <span class="btn-text">Add to Cart</span>
+                                <a class="rbt-btn btn-gradient icon-hover w-100 d-block text-center" href="#" onclick="return false;" (click)="addCart()">
+                                    <span class="btn-text">Añadir a la cesta</span>
                                     <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                 </a>
                             </div>
@@ -749,7 +749,7 @@
 
                             <div class="rbt-widget-details has-show-more">
                                 <ul class="has-show-more-inner-content rbt-course-details-list-wrapper">
-                                    <li><span>Start Date</span><span class="rbt-feature-value rbt-badge-5">{{ LANDING_COURSE.time_course }}</span>
+                                    <li><span>Start With</span><span class="rbt-feature-value rbt-badge-5">{{ LANDING_COURSE.time_course }}</span>
                                     </li>
                                     <li><span>Enrolled</span><span class="rbt-feature-value rbt-badge-5">100</span></li>
                                     <li><span>Files Download</span><span class="rbt-feature-value rbt-badge-5">{{ LANDING_COURSE.files_count }}</span></li>
@@ -765,22 +765,7 @@
                             <div class="social-share-wrapper mt--30 text-center">
                                 <div class="rbt-post-share d-flex align-items-center justify-content-center">
                                     <ul class="social-icon social-default transparent-with-border justify-content-center">
-                                        <li><a href="https://www.facebook.com/">
-                                                <i class="feather-facebook"></i>
-                                            </a>
-                                        </li>
-                                        <li><a href="https://www.twitter.com">
-                                                <i class="feather-twitter"></i>
-                                            </a>
-                                        </li>
-                                        <li><a href="https://www.instagram.com/">
-                                                <i class="feather-instagram"></i>
-                                            </a>
-                                        </li>
-                                        <li><a href="https://www.linkdin.com/">
-                                                <i class="feather-linkedin"></i>
-                                            </a>
-                                        </li>
+
                                     </ul>
                                 </div>
                                 <hr class="mt--20">

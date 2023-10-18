@@ -81,8 +81,9 @@
                                                   <span class="current-price">{{ getNewTotal(COURSE,DESCOUNT_BANNER) }} USD</span>
                                                   <span class="off-price">{{ COURSE.precio_usd }} USD</span>
                                               </div>
-                                              <a class="rbt-btn-link" href="course-details.html">Learn More<i
-                                                      class="feather-arrow-right"></i></a>
+                                              <a class="rbt-btn-link" href="#" onclick="return false;" (click)="addCart(COURSE,DESCOUNT_BANNER)">
+                                                <i class="feather-shopping-cart"></i> Añadir a la cesta
+                                            </a>
                                           </div>
                                       </div>
                                   </div>
@@ -149,19 +150,19 @@
                     <div class="countdown-style-1 mt--50 d-flex justify-content-center">
                         <div class="countdown" [attr.data-date]="DESCOUNT_FLASH.end_date" style="">
                             <div class="countdown-container days">
-                                <span class="countdown-value">87</span>
+                                <span class="countdown-value"></span>
                                 <span class="countdown-heading">Days</span>
                             </div>
                             <div class="countdown-container hours">
-                                <span class="countdown-value">23</span>
+                                <span class="countdown-value"></span>
                                 <span class="countdown-heading">Hours</span>
                             </div>
                             <div class="countdown-container minutes">
-                                <span class="countdown-value">38</span>
+                                <span class="countdown-value"></span>
                                 <span class="countdown-heading">Minutes</span>
                             </div>
                             <div class="countdown-container seconds">
-                                <span class="countdown-value">27</span>
+                                <span class="countdown-value"></span>
                                 <span class="countdown-heading">Seconds</span>
                             </div>
                         </div>
@@ -212,8 +213,9 @@
                                                 <span class="current-price">{{ getNewTotal(COURSE,DESCOUNT_FLASH) }} USD</span>
                                                     <span class="off-price">{{ COURSE.precio_usd }} USD</span>
                                             </div>
-                                            <a class="rbt-btn-link" href="course-details.html">Learn
-                                                More<i class="feather-arrow-right"></i></a>
+                                            <a class="rbt-btn-link" href="#" onclick="return false;" (click)="addCart(COURSE,DESCOUNT_BANNER)">
+                                                <i class="feather-shopping-cart"></i> Añadir a la cesta
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -293,7 +295,9 @@
                                     <span class="current-price">{{ getTotalPriceCourse(COURSE) }} USD</span>
                                     <span class="off-price" *ngIf="COURSE.discount_g">{{ COURSE.precio_usd }}</span>
                                 </div>
-                                <a class="rbt-btn-link left-icon" href="course-details.html"><i class="feather-shopping-cart"></i> Add To Cart</a>
+                                <a class="rbt-btn-link" href="#" onclick="return false;" (click)="addCart(COURSE,DESCOUNT_BANNER)">
+                                    <i class="feather-shopping-cart"></i> Añadir a la cesta
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -821,27 +825,6 @@
               <!-- End Single Testimonial  -->
 
               <!-- Start Single Testimonial  -->
-              <div class="single-column-20">
-                  <div class="rbt-testimonial-box">
-                      <div class="inner">
-                          <div class="clint-info-wrapper">
-                              <div class="thumb">
-                                  <img src="assets/images/testimonial/client-01.png" alt="Clint Images">
-                              </div>
-                              <div class="client-info">
-                                  <h5 class="title">Martha Maldonado</h5>
-                                  <span>Executive Chairman <i>@ Google</i></span>
-                              </div>
-                          </div>
-                          <div class="description">
-                              <p class="subtitle-3">University managemnet, vulputate at sapien sit amet,
-                                  auctor iaculis lorem. In vel hend rerit nisi. Vestibulum eget risus velit.</p>
-                              <a class="rbt-btn-link" href="#">Read Project Case Study<i
-                              class="feather-arrow-right"></i></a>
-                          </div>
-                      </div>
-                  </div>
-              </div>
               <!-- End Single Testimonial  -->
           </div>
       </div>
@@ -870,6 +853,7 @@
                           </span> <span class="course-number">{{ group_courses_categ.courses_count }}</span></button>
                     </li>
                 </ng-container>
+                
 <!--                   <li class="nav-item" role="presentation">
                       <button id="featured-tab" data-bs-toggle="tab" data-bs-target="#featured" type="button" role="tab" aria-controls="featured" aria-selected="false"><span
                   class="filter-text">Featured</span> <span class="course-number">02</span></button>
@@ -947,8 +931,7 @@
                                                     <span class="current-price">{{ getTotalPriceCourse(courses) }} USD</span>
                                                     <span class="off-price" *ngIf="courses.discount_g">{{ courses.precio_usd }}</span>
                                                 </div>
-                                                <a class="rbt-btn-link" [routerLink]="['landing-curso/',courses.slug]">Learn
-                                                    More<i class="feather-arrow-right"></i></a>
+                                                <a class="rbt-btn-link" [routerLink]="['landing-curso/',courses.slug]">Acerca de este curso<i class="feather-arrow-right"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -977,8 +960,8 @@
           <div class="row mb--60">
               <div class="col-lg-12">
                   <div class="section-title text-center">
-                      <span class="subtitle bg-primary-opacity">Our Teacher</span>
-                      <h2 class="title">Whose Inspirations You</h2>
+                      <span class="subtitle bg-primary-opacity">Nuestros Instructores</span>
+                      <h2 class="title">Quienes te inspiran</h2>
                   </div>
               </div>
           </div>
@@ -1009,18 +992,10 @@
                                               <i class="feather-facebook"></i>
                                           </a>
                                       </li>
-                                      <li><a href="https://www.twitter.com">
-                                              <i class="feather-twitter"></i>
-                                          </a>
-                                      </li>
-                                      <li><a href="https://www.instagram.com/">
-                                              <i class="feather-instagram"></i>
-                                          </a>
-                                      </li>
                                   </ul>
                                   <ul class="rbt-information-list mt--25">
                                       <li>
-                                          <a href="#"><i class="feather-phone"></i>+502 2919-7830</a>
+                                          <a href="+502 2919-7830"><i class="feather-phone"></i>+502 2919-7830</a>
                                       </li>
                                       <li>
                                           <a href="mailto:Mctiul@gmail.com"><i class="feather-mail"></i>Mctiul@gmail.com</a>
@@ -1039,34 +1014,26 @@
                               </div>
                               <div class="rbt-team-details">
                                   <div class="author-info">
-                                      <h4 class="title">Robert Song</h4>
-                                      <span class="designation theme-gradient">Math Teacher</span>
+                                      <h4 class="title">Annabella Sanchez</h4>
+                                      <span class="designation theme-gradient">Instructora de tecnologias</span>
                                       <span class="team-form">
                           <i class="feather-map-pin"></i>
-                          <span class="location">CO Miego, AD,USA</span>
+                          <span class="location">Huehuetenango, Guatemala</span>
                                       </span>
                                   </div>
-                                  <p>Education The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
+                                  <p>Apasionada por las nuevas tecnologias.</p>
                                   <ul class="social-icon social-default mt--20 justify-content-start">
                                       <li><a href="https://www.facebook.com/">
                                               <i class="feather-facebook"></i>
                                           </a>
                                       </li>
-                                      <li><a href="https://www.twitter.com">
-                                              <i class="feather-twitter"></i>
-                                          </a>
-                                      </li>
-                                      <li><a href="https://www.instagram.com/">
-                                              <i class="feather-instagram"></i>
-                                          </a>
-                                      </li>
                                   </ul>
                                   <ul class="rbt-information-list mt--25">
                                       <li>
-                                          <a href="#"><i class="feather-phone"></i>+1-202-555-0174</a>
+                                          <a href="tel: +502 13975522"><i class="feather-phone"></i>+502 13975522</a>
                                       </li>
                                       <li>
-                                          <a href="mailto:hello@example.com"><i class="feather-mail"></i>example@gmail.com</a>
+                                          <a href="mailto:AbllaS1997@gmail.com"><i class="feather-mail"></i>AbllaS1997@gmail.com</a>
                                       </li>
                                   </ul>
                               </div>
@@ -1095,14 +1062,6 @@
                                               <i class="feather-facebook"></i>
                                           </a>
                                       </li>
-                                      <li><a href="https://www.twitter.com">
-                                              <i class="feather-twitter"></i>
-                                          </a>
-                                      </li>
-                                      <li><a href="https://www.instagram.com/">
-                                              <i class="feather-instagram"></i>
-                                          </a>
-                                      </li>
                                   </ul>
                                   <ul class="rbt-information-list mt--25">
                                       <li>
@@ -1125,34 +1084,26 @@
                               </div>
                               <div class="rbt-team-details">
                                   <div class="author-info">
-                                      <h4 class="title">Soseph Sara</h4>
-                                      <span class="designation theme-gradient">Web Teacher</span>
+                                      <h4 class="title">Sara Barrios</h4>
+                                      <span class="designation theme-gradient">Instructora Web</span>
                                       <span class="team-form">
                           <i class="feather-map-pin"></i>
-                          <span class="location">CO Miego, AD,USA</span>
+                          <span class="location">Guatemala</span>
                                       </span>
                                   </div>
-                                  <p>Histudy The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
+                                  <p>Me llamo Sara, y soy una persona apasionada por la enseñanza, la tecnología y la web.</p>
                                   <ul class="social-icon social-default mt--20 justify-content-start">
                                       <li><a href="https://www.facebook.com/">
                                               <i class="feather-facebook"></i>
                                           </a>
                                       </li>
-                                      <li><a href="https://www.twitter.com">
-                                              <i class="feather-twitter"></i>
-                                          </a>
-                                      </li>
-                                      <li><a href="https://www.instagram.com/">
-                                              <i class="feather-instagram"></i>
-                                          </a>
-                                      </li>
                                   </ul>
                                   <ul class="rbt-information-list mt--25">
                                       <li>
-                                          <a href="#"><i class="feather-phone"></i>+1-202-555-0174</a>
+                                          <a href="tel: +502 55142377"><i class="feather-phone"></i>+502 55142377</a>
                                       </li>
                                       <li>
-                                          <a href="mailto:hello@example.com"><i class="feather-mail"></i>example@gmail.com</a>
+                                          <a href="mailto:Sarbrrios@gmail.com"><i class="feather-mail"></i>Sarbrrios@gmail.com</a>
                                       </li>
                                   </ul>
                               </div>
@@ -1168,34 +1119,26 @@
                               </div>
                               <div class="rbt-team-details">
                                   <div class="author-info">
-                                      <h4 class="title">Thomas Dal</h4>
-                                      <span class="designation theme-gradient">Graphic Teacher</span>
+                                      <h4 class="title">Tomas Rodriguez</h4>
+                                      <span class="designation theme-gradient">Instructor</span>
                                       <span class="team-form">
                           <i class="feather-map-pin"></i>
-                          <span class="location">CO Miego, AD,USA</span>
+                          <span class="location">Guatemala, Guatemala</span>
                                       </span>
                                   </div>
-                                  <p>Histudy The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
+                                  <p>Me encanta la enseñanza de varios temas.</p>
                                   <ul class="social-icon social-default mt--20 justify-content-start">
                                       <li><a href="https://www.facebook.com/">
                                               <i class="feather-facebook"></i>
                                           </a>
                                       </li>
-                                      <li><a href="https://www.twitter.com">
-                                              <i class="feather-twitter"></i>
-                                          </a>
-                                      </li>
-                                      <li><a href="https://www.instagram.com/">
-                                              <i class="feather-instagram"></i>
-                                          </a>
-                                      </li>
                                   </ul>
                                   <ul class="rbt-information-list mt--25">
                                       <li>
-                                          <a href="#"><i class="feather-phone"></i>+1-202-555-0174</a>
+                                          <a href="tel: +502 24448109"><i class="feather-phone"></i>+502 24448109</a>
                                       </li>
                                       <li>
-                                          <a href="mailto:hello@example.com"><i class="feather-mail"></i>example@gmail.com</a>
+                                          <a href="mailto:Tomrz1998@gmail.com"><i class="feather-mail"></i>Tomrz1998@gmail.com</a>
                                       </li>
                                   </ul>
                               </div>
@@ -1206,39 +1149,31 @@
                           <div class="inner">
                               <div class="rbt-team-thumbnail">
                                   <div class="thumb">
-                                      <img src="assets/images/team/team-06.jpg" alt="Testimonial Images">
+                                      <img src="assets/images/team/maxi.jpg" alt="Testimonial Images">
                                   </div>
                               </div>
                               <div class="rbt-team-details">
                                   <div class="author-info">
-                                      <h4 class="title">Christopher Lisa</h4>
-                                      <span class="designation theme-gradient">English Teacher</span>
+                                      <h4 class="title">Maximiliano Burgos</h4>
+                                      <span class="designation theme-gradient">Dev de DEVOPS</span>
                                       <span class="team-form">
                           <i class="feather-map-pin"></i>
-                          <span class="location">CO Miego, AD,USA</span>
+                          <span class="location">Guatemala</span>
                                       </span>
                                   </div>
-                                  <p>Histudy The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
+                                  <p>Maximiliano is a brilliant educator, whose life was spent for computer science and love of nature..</p>
                                   <ul class="social-icon social-default mt--20 justify-content-start">
                                       <li><a href="https://www.facebook.com/">
                                               <i class="feather-facebook"></i>
                                           </a>
                                       </li>
-                                      <li><a href="https://www.twitter.com">
-                                              <i class="feather-twitter"></i>
-                                          </a>
-                                      </li>
-                                      <li><a href="https://www.instagram.com/">
-                                              <i class="feather-instagram"></i>
-                                          </a>
-                                      </li>
                                   </ul>
                                   <ul class="rbt-information-list mt--25">
                                       <li>
-                                          <a href="#"><i class="feather-phone"></i>+1-202-555-0174</a>
+                                          <a href="+502 34157704"><i class="feather-phone"></i>+502 34157704</a>
                                       </li>
                                       <li>
-                                          <a href="mailto:hello@example.com"><i class="feather-mail"></i>example@gmail.com</a>
+                                          <a href="mailto:Maxbrs@gmail.com"><i class="feather-mail"></i>Maxbrs@gmail.com</a>
                                       </li>
                                   </ul>
                               </div>
@@ -1306,7 +1241,7 @@
                           <a id="team-tab6-tab" data-bs-toggle="tab" data-bs-target="#team-tab6" role="tab" aria-controls="team-tab6" aria-selected="false">
                               <div class="rbt-team-thumbnail">
                                   <div class="thumb">
-                                      <img src="assets/images/team/team-06.jpg" alt="Testimonial Images">
+                                      <img src="assets/images/team/maxi.jpg" alt="Testimonial Images">
                                   </div>
                               </div>
                           </a>

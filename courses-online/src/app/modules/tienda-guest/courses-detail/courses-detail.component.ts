@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TiendaGuestService } from '../service/tienda-guest.service';
+import { CartService } from '../service/cart.service';
+import Swal from 'sweetalert2';
+
 
 declare function courseView():any;
 declare function showMoreBtn():any;
 declare function magnigyPopup():any;
+
+
 @Component({
   selector: 'app-courses-detail',
   templateUrl: './courses-detail.component.html',
@@ -18,9 +23,12 @@ export class CoursesDetailComponent implements OnInit{
   courses_related_categories:any = [];
   campaing_discount_id:any
   DISCOUNT:any = null;
+  user: any = null;
   constructor(
     public activedRouter: ActivatedRoute,
     public tiendaGuestService: TiendaGuestService,
+    public cartService: CartService,
+    public router:Router,
   ) {
     
   }
@@ -51,6 +59,7 @@ export class CoursesDetailComponent implements OnInit{
       courseView();
       showMoreBtn();
     }, 50);
+    this.user = this.cartService.authService.user;
   }
 
   getNewTotal(COURSE:any,DESCOUNT_BANNER:any){
@@ -67,4 +76,47 @@ export class CoursesDetailComponent implements OnInit{
     }
     return COURSE.precio_usd;
   }
+
+  addCart() {
+    if (!this.user) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Atención',
+            text: 'NECESITAS REGISTRARTE EN LA TIENDA'
+        });
+        this.router.navigateByUrl("auth/login");
+        return;
+    }
+
+    let data = {
+        course_id: this.LANDING_COURSE.id,
+        type_discount: this.LANDING_COURSE.discount_g ? this.LANDING_COURSE.discount_g.type_discount : null,
+        discount: this.LANDING_COURSE.discount_g ? this.LANDING_COURSE.discount_g.discount : null,
+        type_campaing: this.LANDING_COURSE.discount_g ? this.LANDING_COURSE.discount_g.type_campaing : null,
+        code_cupon: null,
+        code_discount: this.LANDING_COURSE.discount_g ? this.LANDING_COURSE.discount_g.code : null,
+        precio_unitario: this.LANDING_COURSE.precio_usd,
+        total: this.getTotalPriceCourse(this.LANDING_COURSE),
+    };
+
+    this.cartService.registerCart(data).subscribe((resp: any) => {
+        console.log(resp);
+        if (resp.message == 403) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: resp.message_text
+            });
+            return;
+        } else {
+            this.cartService.addCart(resp.cart);
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: 'EL CURSO SE AGREGO AL CARRITO EXITOSAMENTE'
+            });
+        }
+    })
+}
+
 }
