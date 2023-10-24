@@ -156,6 +156,9 @@ export const environment = {
       'thumbnail': './assets/media/demos/demo20.png'
     },
   },
+  URL_BACKEND: 'http://api.cursos-udemy.site/',
+  URL_SERVICIOS: 'http://api.cursos-udemy.site/api',
+  URL_FROTEND: 'http://admin.cursos-udemy.site',
 };
 
 /*
