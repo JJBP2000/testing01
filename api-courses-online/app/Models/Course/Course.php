@@ -4,6 +4,8 @@ namespace App\Models\Course;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Sale\Review;
+use App\Models\CoursesStudent;
 use App\Models\Course\Categorie;
 use Illuminate\Support\Facades\Log;
 use App\Models\Course\CourseSection;
@@ -72,6 +74,16 @@ class Course extends Model
     {
         return $this->hasMany(DiscountCourse::class);
     }
+    public function courses_students()
+    {
+        return $this->hasMany(CoursesStudent::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
 
     public function getDiscountCAttribute()
     {
@@ -179,6 +191,22 @@ class Course extends Model
        }
        return $this->AddTimes($times);
     }
+    
+    public function getCountStudentsAttribute()
+    {
+        return $this->courses_students->count();
+    }
+
+    public function getCountReviewsAttribute()
+    {
+        return $this->reviews->count();
+    }
+
+    public function getAvgReviewsAttribute()
+    {
+        return $this->reviews->avg("rating");
+    }
+
 
     function scopeFilterAdvance($query,$search,$state)
     {
@@ -191,4 +219,33 @@ class Course extends Model
         
         return $query;
     }
+
+    function scopeFilterAdvanceEcommerce($query,$search,$selected_categories = [],$instructores_selected = [],
+    $min_price = 0,$max_price = 0,$idiomas_selected = [],$levels_selected = [],
+    $courses_a = [],$rating_selected = 0)
+        {
+            if($search){
+            $query->where("title","like","%".$search."%");
+            }
+            if(sizeof($selected_categories) > 0){
+            $query->whereIn("categorie_id",$selected_categories);
+            }
+            if(sizeof($instructores_selected) > 0){
+            $query->whereIn("user_id",$instructores_selected);
+            }
+            if($min_price > 0 && $max_price > 0){
+            $query->whereBetween("precio_usd",[$min_price,$max_price]);
+            }
+            if(sizeof($idiomas_selected) > 0){
+            $query->whereIn("idioma",$idiomas_selected);
+            }
+            if(sizeof($levels_selected) > 0){
+            $query->whereIn("level",$levels_selected);
+            }
+            if($courses_a || $rating_selected){
+            $query->whereIn("id",$courses_a);
+            }
+            return $query;
+        }
+
 }

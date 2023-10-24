@@ -1,0 +1,10 @@
+.rating{
+    color: black !important;
+    margin-right: 0px;
+}
+
+.progress .progress-bar.bar-color-success {
+    background: #3EB75E;
+}
+
+

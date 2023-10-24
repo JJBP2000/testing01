@@ -24,6 +24,8 @@ export class CoursesDetailComponent implements OnInit{
   campaing_discount_id:any
   DISCOUNT:any = null;
   user: any = null;
+
+  is_have_course:any = false;
   constructor(
     public activedRouter: ActivatedRoute,
     public tiendaGuestService: TiendaGuestService,
@@ -54,6 +56,7 @@ export class CoursesDetailComponent implements OnInit{
       setTimeout(() => {
         magnigyPopup();
       }, 50);
+      this.is_have_course = resp.is_have_course;
     });
     setTimeout(() => {
       courseView();
@@ -76,6 +79,10 @@ export class CoursesDetailComponent implements OnInit{
     }
     return COURSE.precio_usd;
   }
+
+  openCart() {
+    this.router.navigate(['/cart']);
+}
 
   addCart() {
     if (!this.user) {
@@ -111,10 +118,18 @@ export class CoursesDetailComponent implements OnInit{
         } else {
             this.cartService.addCart(resp.cart);
             Swal.fire({
-                icon: 'success',
-                title: 'Éxito',
-                text: 'EL CURSO SE AGREGO AL CARRITO EXITOSAMENTE'
-            });
+              icon: 'success',
+              title: 'Éxito',
+              text: 'EL CURSO SE AGREGO AL CARRITO EXITOSAMENTE',
+              showCancelButton: true,
+              confirmButtonText: 'Ir al carrito',
+              cancelButtonText: 'Seguir comprando'
+          }).then(result => {
+              if (result.isConfirmed) {
+                  this.router.navigate(['/cart']);
+              }
+          });
+          
         }
     })
 }

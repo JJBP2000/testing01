@@ -88,6 +88,22 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->courses->count();
     }
+
+    public function getAvgReviewsAttribute()
+    {
+        return $this->courses->avg("avg_reviews");
+    }
+
+    public function getCountReviewsAttribute()
+    {
+        return $this->courses->sum("count_reviews");
+    }
+
+    public function getCountStudentsAttribute()
+    {
+        return $this->courses->sum("count_students");
+    }
+    
     function scopeFilterAdvance($query,$search,$state)
     {
         if($search){

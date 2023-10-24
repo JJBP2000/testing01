@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Tienda;
 
 use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Course\Course;
+use App\Models\CoursesStudent;
 use App\Models\Course\Categorie;
 use App\Models\Discount\Discount;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Ecommerce\Course\CourseHomeResource;
 use App\Http\Resources\Ecommerce\Course\CourseHomeCollection;
 use App\Http\Resources\Ecommerce\LandingCourse\LandingCourseResource;
@@ -35,7 +39,7 @@ class HomeController extends Controller
             ]);
         }
 
-        date_default_timezone_set("America/Guatemala");
+        date_default_timezone_set("America/Lima");
         $DESCOUNT_BANNER = Discount::where("type_campaing",3)->where("state",1)
                             ->where("start_date","<=",today())
                             ->where("end_date",">=",today())
@@ -48,7 +52,7 @@ class HomeController extends Controller
             }
         }
 
-        date_default_timezone_set("America/Guatemala");
+        date_default_timezone_set("America/Lima");
         $DESCOUNT_FLASH = Discount::where("type_campaing",2)->where("state",1)
                             ->where("start_date","<=",today())
                             ->where("end_date",">=",today())
@@ -79,6 +83,8 @@ class HomeController extends Controller
             "DESCOUNT_FLASH" => $DESCOUNT_FLASH ? [
                 "id" => $DESCOUNT_FLASH->id,
                 "discount" => $DESCOUNT_FLASH->discount,
+                "code" => $DESCOUNT_FLASH->code,
+                "type_campaing" => $DESCOUNT_FLASH->type_campaing,
                 "type_discount" => $DESCOUNT_FLASH->type_discount,
                 "end_date" => Carbon::parse($DESCOUNT_FLASH->end_date)->format("Y-m-d"), 
                 "start_date_d" =>  Carbon::parse($DESCOUNT_FLASH->start_date)->format("Y/m/d"), 
@@ -96,8 +102,15 @@ class HomeController extends Controller
             $discount = Discount::findOrFail($campaing_discount);
         }
         $course = Course::where("slug",$slug)->first();
+        $is_have_course = false;
         if(!$course){
             return abort(404);
+        }
+        if(Auth::guard("api")->check()){
+            $course_student = CoursesStudent::where("user_id",auth("api")->user()->id)->where("course_id",$course->id)->first();
+            if($course_student){
+                $is_have_course = true;
+            }
         }
         $courses_related_instructor = Course::where("id","<>",$course->id)->where("user_id",$course->user_id)->inRandomOrder()->take(2)->get();
 
@@ -112,6 +125,81 @@ class HomeController extends Controller
                 return CourseHomeResource::make($course);
             }),
             "DISCOUNT" => $discount,
+            "is_have_course" => $is_have_course,
+        ]);
+    }
+
+    public function course_leason(Request $request,$slug)
+    {
+
+        $course = Course::where("slug",$slug)->first();
+
+        if(!$course){
+            return response()->json(["message" => 403, "message_text" => "EL CURSO NO EXISTE"]);
+        }
+
+        $course_student = CoursesStudent::where("course_id",$course->id)->where("user_id",auth("api")->user()->id)->first();
+        if(!$course_student){
+            return response()->json(["message" => 403, "message_text" => "TU NO ESTAS INSCRITO EN ESTE CURSO"]);
+        }
+        
+        return response()->json([
+            "course" => LandingCourseResource::make($course),
+        ]);
+    }
+
+    public function listCourses(Request $request)
+    {
+        $search = $request->search;
+        $selected_categories = $request->selected_categories ?? [];
+        $instructores_selected = $request->instructores_selected ?? [];
+        $min_price = $request->min_price;
+        $max_price = $request->max_price;
+
+        $idiomas_selected = $request->idiomas_selected ?? [];
+        $levels_selected = $request->levels_selected ?? [];
+        $rating_selected = $request->rating_selected;
+
+        $courses_a = [];
+        if($rating_selected){
+            $courses_query = Course::where("state",2)
+                         ->join("reviews","reviews.course_id" ,"=", "courses.id")
+                         ->select("courses.id as courseId",DB::raw("AVG(reviews.rating) as rating_reviews"))
+                         ->groupBy("courseId")
+                         ->having("rating_reviews",">=",$rating_selected) // 3.6
+                         ->having("rating_reviews","<",$rating_selected + 1)
+                         ->get();
+            $courses_a= $courses_query->pluck("courseId")->toArray();
+            // error_log(json_encode($courses_a));
+        }
+        // if(!$search){
+        //     return response()->json(["courses" => []]);
+        // }
+        $courses = Course::filterAdvanceEcommerce($search,
+                            $selected_categories,
+                            $instructores_selected,
+                            $min_price,$max_price,
+                            $idiomas_selected,$levels_selected,
+                            $courses_a,$rating_selected)->where("state",2)->orderBy("id","desc")->get();
+
+        return response()->json(["courses" => CourseHomeCollection::make($courses)]);
+    }
+
+    public function config_all()
+    {
+        $categories = Categorie::where("categorie_id",NULL)->withCount("courses")->orderBy("id","desc")->get();
+        $instructores = User::where("is_instructor",1)->orderBy("id","desc")->get();
+        return response()->json([
+            "categories" => $categories,
+            "instructores" => $instructores->map(function($user){
+                return [
+                    "id" => $user->id,
+                    "courses_count" => $user->courses_count,
+                    "full_name" => $user->name.' '.$user->surname,
+                ];
+            }),
+            "levels" => ["Basico","Intermedio","Avanzado"],
+            "idiomas" => ["Español","Ingles","Portuges"],
         ]);
     }
 }

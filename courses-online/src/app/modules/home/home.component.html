@@ -20,7 +20,7 @@
                               <strong>Sé el mejor!
                                   </strong>
                           </p>
-                          <div class="slider-btn">
+                         <!--  <div class="slider-btn">
                               <a class="rbt-btn btn-gradient hover-icon-reverse" href="#">
                                   <span class="icon-reverse-wrapper">
                                       <span class="btn-text">Ver curso</span>
@@ -28,7 +28,7 @@
                                   <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                   </span>
                               </a>
-                          </div>
+                          </div> -->
                       </div>
                       <div class="shape-wrapper" id="scene">
                           <img src="assets/images/banner/banner-01.png" alt="Hero Image">
@@ -60,7 +60,7 @@
                                       <div class="rbt-card-body">
                                           <ul class="rbt-meta">
                                               <li><i class="feather-book"></i>{{COURSE.count_class }} Lessons</li>
-                                              <li><i class="feather-users"></i>50 Students</li>
+                                              <li><i class="feather-users"></i>{{ COURSE.count_students }} Students</li>
                                               <li><i class="feather-play"></i>{{ COURSE.time_course }}</li>
                                           </ul>
                                           <h4 class="rbt-card-title"><a [routerLink]="['landing-curso/',COURSE.slug]" [queryParams]="{'campaing_discount': DESCOUNT_BANNER.id}">{{ COURSE.title }}</a>
@@ -68,13 +68,13 @@
                                           <p class="rbt-card-text">{{ COURSE.subtitle }}</p>
                                           <div class="rbt-review">
                                               <div class="rating">
-                                                  <i class="fas fa-star"></i>
-                                                  <i class="fas fa-star"></i>
-                                                  <i class="fas fa-star"></i>
-                                                  <i class="fas fa-star"></i>
-                                                  <i class="fas fa-star"></i>
+                                                <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 1}"></i>
+                                                <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 2}"></i>
+                                                <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 3}"></i>
+                                                <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 4}"></i>
+                                                <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 5}"></i>
                                               </div>
-                                              <span class="rating-count"> (15 Reviews)</span>
+                                              <span class="rating-count"> ({{ COURSE.count_reviews }} Reviews)</span>
                                           </div>
                                           <div class="rbt-card-bottom">
                                               <div class="rbt-price">
@@ -116,7 +116,7 @@
             <!-- Start Category Box Layout  -->
               <ng-container *ngFor="let CATEGORIE of CATEGORIES">
                   <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                      <a class="rbt-cat-box rbt-cat-box-1 text-center" href="course-filter-one-toggle.html">
+                      <a class="rbt-cat-box rbt-cat-box-1 text-center" href="#">
                           <div class="inner">
                               <div class="icons">
                                   <img [src]="CATEGORIE.imagen" alt="Icons Images">
@@ -187,13 +187,13 @@
                                         <div class="rbt-card-top">
                                             <div class="rbt-review">
                                                 <div class="rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 1}"></i>
+                                                    <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 2}"></i>
+                                                    <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 3}"></i>
+                                                    <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 4}"></i>
+                                                    <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 5}"></i>
                                                 </div>
-                                                <span class="rating-count"> (15 Reviews)</span>
+                                                <span class="rating-count"> ({{ COURSE.count_reviews }} Reviews)</span>
                                             </div>
                                             <div class="rbt-bookmark-btn">
                                                 <a class="rbt-round-btn" title="Bookmark" href="#"><i
@@ -204,7 +204,7 @@
                                         </h4>
                                         <ul class="rbt-meta">
                                             <li><i class="feather-book"></i>{{ COURSE.count_class }} Lessons</li>
-                                            <li><i class="feather-users"></i>40 Students</li>
+                                            <li><i class="feather-users"></i>{{ COURSE.count_students }} Students</li>
                                             <li><i class="feather-users"></i>{{ COURSE.time_course }}</li>
                                         </ul>
     
@@ -213,7 +213,7 @@
                                                 <span class="current-price">{{ getNewTotal(COURSE,DESCOUNT_FLASH) }} USD</span>
                                                     <span class="off-price">{{ COURSE.precio_usd }} USD</span>
                                             </div>
-                                            <a class="rbt-btn-link" href="#" onclick="return false;" (click)="addCart(COURSE,DESCOUNT_BANNER)">
+                                            <a class="rbt-btn-link" href="#" onclick="return false;" (click)="addCart(COURSE,DESCOUNT_FLASH)">
                                                 <i class="feather-shopping-cart"></i> Añadir a la cesta
                                             </a>
                                         </div>
@@ -260,13 +260,13 @@
                             <div class="rbt-card-top">
                                 <div class="rbt-review">
                                     <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 1}"></i>
+                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 2}"></i>
+                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 3}"></i>
+                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 4}"></i>
+                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 5}"></i>
                                     </div>
-                                    <span class="rating-count"> (15 Reviews)</span>
+                                    <span class="rating-count"> ({{ COURSE.count_reviews }} Reviews)</span>
                                 </div>
                                 <div class="rbt-bookmark-btn">
                                     <a class="rbt-round-btn" title="Bookmark" href="#"><i class="feather-bookmark"></i></a>
@@ -276,7 +276,7 @@
                             </h4>
                             <ul class="rbt-meta">
                                 <li><i class="feather-book"></i>{{ COURSE.count_class }} Lessons</li>
-                                <li><i class="feather-users"></i>50 Students</li>
+                                <li><i class="feather-users"></i>{{ COURSE.count_students }} Students</li>
                                 <li><i class="feather-play"></i>{{ COURSE.time_course }}</li>
                             </ul>
                             <p class="rbt-card-text">{{ COURSE.subtitle }}.</p>
@@ -295,7 +295,7 @@
                                     <span class="current-price">{{ getTotalPriceCourse(COURSE) }} USD</span>
                                     <span class="off-price" *ngIf="COURSE.discount_g">{{ COURSE.precio_usd }}</span>
                                 </div>
-                                <a class="rbt-btn-link" href="#" onclick="return false;" (click)="addCart(COURSE,DESCOUNT_BANNER)">
+                                <a class="rbt-btn-link" href="#" onclick="return false;" (click)="addCart(COURSE)">
                                     <i class="feather-shopping-cart"></i> Añadir a la cesta
                                 </a>
                             </div>
@@ -309,9 +309,9 @@
           <div class="row">
               <div class="col-lg-12">
                   <div class="load-more-btn mt--60 text-center">
-                      <a class="rbt-btn btn-gradient btn-lg hover-icon-reverse" href="#">
+                      <a class="rbt-btn btn-gradient btn-lg hover-icon-reverse" href="listado-de-cursos">
                           <span class="icon-reverse-wrapper">
-                              <span class="btn-text">Carga mas cursos</span>
+                              <span class="btn-text">Cargar mas cursos</span>
                           <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                           <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                           </span>
@@ -409,7 +409,7 @@
                           <div class="col-lg-12 col-xl-7">
                               <div class="video-popup-wrapper mt_lg--10 mt_md--20 mt_sm--20">
                                   <img class="w-100 rbt-radius" src="assets/images/others/video-01.jpg" alt="Video Images">
-                                  <a class="rbt-btn rounded-player-2 sm-size popup-video position-to-top with-animation" href="https://www.youtube.com/watch?v=nA1Aqp0sPQo">
+                                  <a class="rbt-btn rounded-player-2 sm-size popup-video position-to-top with-animation">
                                       <span class="play-icon"></span>
                                   </a>
                               </div>
@@ -901,13 +901,13 @@
                                             <div class="rbt-card-top">
                                                 <div class="rbt-review">
                                                     <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star" [ngClass]="{'rating': courses.avg_reviews < 1}"></i>
+                                                        <i class="fas fa-star" [ngClass]="{'rating': courses.avg_reviews < 2}"></i>
+                                                        <i class="fas fa-star" [ngClass]="{'rating': courses.avg_reviews < 3}"></i>
+                                                        <i class="fas fa-star" [ngClass]="{'rating': courses.avg_reviews < 4}"></i>
+                                                        <i class="fas fa-star" [ngClass]="{'rating': courses.avg_reviews < 5}"></i>
                                                     </div>
-                                                    <span class="rating-count"> (15 Reviews)</span>
+                                                    <span class="rating-count"> ({{ courses.count_reviews }} Reviews)</span>
                                                 </div>
                                                 <div class="rbt-bookmark-btn">
                                                     <a class="rbt-round-btn" title="Bookmark" href="#"><i
@@ -918,7 +918,7 @@
                                             </h4>
                                             <ul class="rbt-meta">
                                                 <li><i class="feather-book"></i>{{ courses.count_class }} Lessons</li>
-                                                <li><i class="feather-users"></i>40 Students</li>
+                                                <li><i class="feather-users"></i>{{ courses.count_students }} Students</li>
                                                 <li><i class="feather-users"></i>{{ courses.time_course }}</li>
                                             </ul>
         
@@ -1049,14 +1049,14 @@
                               </div>
                               <div class="rbt-team-details">
                                   <div class="author-info">
-                                      <h4 class="title">William Susan</h4>
-                                      <span class="designation theme-gradient">React Teacher</span>
+                                      <h4 class="title">Susan Ying</h4>
+                                      <span class="designation theme-gradient">Instructora Mobile</span>
                                       <span class="team-form">
                           <i class="feather-map-pin"></i>
-                          <span class="location">CO Miego, AD,USA</span>
+                          <span class="location">Guatemala</span>
                                       </span>
                                   </div>
-                                  <p>React The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
+                                  <p>Apasionada con la tecnologia mobile desde hace 5 años.</p>
                                   <ul class="social-icon social-default mt--20 justify-content-start">
                                       <li><a href="https://www.facebook.com/">
                                               <i class="feather-facebook"></i>
@@ -1065,10 +1065,10 @@
                                   </ul>
                                   <ul class="rbt-information-list mt--25">
                                       <li>
-                                          <a href="#"><i class="feather-phone"></i>+1-202-555-0174</a>
+                                          <a href="tel: +502 17540369"><i class="feather-phone"></i>+502 17540369</a>
                                       </li>
                                       <li>
-                                          <a href="mailto:hello@example.com"><i class="feather-mail"></i>example@gmail.com</a>
+                                          <a href="mailto:SusanLaoYing1890@gmail.com"><i class="feather-mail"></i>SusanLaoYing1890@gmail.com</a>
                                       </li>
                                   </ul>
                               </div>
@@ -1261,18 +1261,18 @@
               <div class="col-lg-6 col-md-6 col-12">
                   <div class="section-title">
                       <span class="subtitle bg-pink-opacity">Blog Post</span>
-                      <h2 class="title">Post Popular Post.</h2>
+                      <h2 class="title">Popular Post.</h2>
                   </div>
               </div>
               <div class="col-lg-6 col-md-6 col-12">
                   <div class="read-more-btn text-start text-md-end">
-                      <a class="rbt-btn btn-gradient hover-icon-reverse" href="blog.html">
+                      <!-- <a class="rbt-btn btn-gradient hover-icon-reverse" href="#">
                           <div class="icon-reverse-wrapper">
-                              <span class="btn-text">See All Articles</span>
+                              <!-- <span class="btn-text">See All Articles</span>
                               <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                              <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                              <span class="btn-icon"><i class="feather-arrow-right"></i></span> 
                           </div>
-                      </a>
+                      </a> -->
                   </div>
               </div>
           </div>
@@ -1282,14 +1282,14 @@
               <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt--30" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
                   <div class="rbt-card variation-02 height-330 rbt-hover">
                       <div class="rbt-card-img">
-                          <a href="blog-details.html">
+                          <a href="#">
                               <img src="assets/images/blog/blog-card-01.jpg" alt="Card image"> </a>
                       </div>
                       <div class="rbt-card-body">
-                          <h3 class="rbt-card-title"><a href="blog-details.html">React</a></h3>
-                          <p class="rbt-card-text">Tú mejor tecnología para renderizar.</p>
+                          <h3 class="rbt-card-title"><a href="#">HiStu</a></h3>
+                          <p class="rbt-card-text">Tu mejor lugar para aprender.</p>
                           <div class="rbt-card-bottom">
-                              <a class="transparent-button" href="blog-details.html">Aprende Más<i><svg width="17" height="12" xmlns="http://www.w3.org/2000/svg"><g stroke="#27374D" fill="none" fill-rule="evenodd"><path d="M10.614 0l5.629 5.629-5.63 5.629"/><path stroke-linecap="square" d="M.663 5.572h14.594"/></g></svg></i></a>
+                             <!--  <a class="transparent-button" href="blog-details.html">Aprende Más<i><svg width="17" height="12" xmlns="http://www.w3.org/2000/svg"><g stroke="#27374D" fill="none" fill-rule="evenodd"><path d="M10.614 0l5.629 5.629-5.63 5.629"/><path stroke-linecap="square" d="M.663 5.572h14.594"/></g></svg></i></a> -->
                           </div>
                       </div>
                   </div>
@@ -1300,13 +1300,13 @@
                   <!-- Start Single Card  -->
                   <div class="rbt-card card-list variation-02 rbt-hover">
                       <div class="rbt-card-img">
-                          <a href="blog-details.html">
+                          <a href="#">
                               <img src="assets/images/blog/blog-card-02.jpg" alt="Card image"> </a>
                       </div>
                       <div class="rbt-card-body">
-                          <h5 class="rbt-card-title"><a href="blog-details.html">Why Is Education So Famous?</a></h5>
+                          <h5 class="rbt-card-title"><a href="#">El conocimiento es poder</a></h5>
                           <div class="rbt-card-bottom">
-                              <a class="transparent-button" href="blog-details.html">Read Article<i><svg width="17" height="12" xmlns="http://www.w3.org/2000/svg"><g stroke="#27374D" fill="none" fill-rule="evenodd"><path d="M10.614 0l5.629 5.629-5.63 5.629"/><path stroke-linecap="square" d="M.663 5.572h14.594"/></g></svg></i></a>
+                              <!-- <a class="transparent-button" href="blog-details.html">Read Article<i><svg width="17" height="12" xmlns="http://www.w3.org/2000/svg"><g stroke="#27374D" fill="none" fill-rule="evenodd"><path d="M10.614 0l5.629 5.629-5.63 5.629"/><path stroke-linecap="square" d="M.663 5.572h14.594"/></g></svg></i></a> -->
                           </div>
                       </div>
                   </div>
@@ -1315,13 +1315,13 @@
                   <!-- Start Single Card  -->
                   <div class="rbt-card card-list variation-02 rbt-hover mt--30">
                       <div class="rbt-card-img">
-                          <a href="blog-details.html">
+                          <a href="#">
                               <img src="assets/images/blog/blog-card-03.jpg" alt="Card image"> </a>
                       </div>
                       <div class="rbt-card-body">
-                          <h5 class="rbt-card-title"><a href="blog-details.html">Difficult Things About Education.</a></h5>
+                          <h5 class="rbt-card-title"><a href="#">Todo a tu ritmo.</a></h5>
                           <div class="rbt-card-bottom">
-                              <a class="transparent-button" href="blog-details.html">Read Article<i><svg width="17" height="12" xmlns="http://www.w3.org/2000/svg"><g stroke="#27374D" fill="none" fill-rule="evenodd"><path d="M10.614 0l5.629 5.629-5.63 5.629"/><path stroke-linecap="square" d="M.663 5.572h14.594"/></g></svg></i></a>
+                             <!--  <a class="transparent-button" href="blog-details.html">Read Article<i><svg width="17" height="12" xmlns="http://www.w3.org/2000/svg"><g stroke="#27374D" fill="none" fill-rule="evenodd"><path d="M10.614 0l5.629 5.629-5.63 5.629"/><path stroke-linecap="square" d="M.663 5.572h14.594"/></g></svg></i></a> -->
                           </div>
                       </div>
                   </div>
@@ -1330,13 +1330,13 @@
                   <!-- Start Single Card  -->
                   <div class="rbt-card card-list variation-02 rbt-hover mt--30">
                       <div class="rbt-card-img">
-                          <a href="blog-details.html">
+                          <a href="#">
                               <img src="assets/images/blog/blog-card-04.jpg" alt="Card image"> </a>
                       </div>
                       <div class="rbt-card-body">
-                          <h5 class="rbt-card-title"><a href="blog-details.html">Education Is So Famous, But Why?</a></h5>
+                          <h5 class="rbt-card-title"><a href="#">Todo en HiStu</a></h5>
                           <div class="rbt-card-bottom">
-                              <a class="transparent-button" href="blog-details.html">Read Article<i><svg width="17" height="12" xmlns="http://www.w3.org/2000/svg"><g stroke="#27374D" fill="none" fill-rule="evenodd"><path d="M10.614 0l5.629 5.629-5.63 5.629"/><path stroke-linecap="square" d="M.663 5.572h14.594"/></g></svg></i></a>
+                              <!-- <a class="transparent-button" href="blog-details.html">Read Article<i><svg width="17" height="12" xmlns="http://www.w3.org/2000/svg"><g stroke="#27374D" fill="none" fill-rule="evenodd"><path d="M10.614 0l5.629 5.629-5.63 5.629"/><path stroke-linecap="square" d="M.663 5.572h14.594"/></g></svg></i></a> -->
                           </div>
                       </div>
                   </div>
@@ -1348,7 +1348,7 @@
   </div>
   <!-- End Blog Style -->
 
-  <div class="rbt-newsletter-area newsletter-style-2 bg-color-primary rbt-section-gap">
+  <!-- <div class="rbt-newsletter-area newsletter-style-2 bg-color-primary rbt-section-gap">
       <div class="container">
           <div class="row row--15 align-items-center">
               <div class="col-lg-12">
@@ -1371,7 +1371,7 @@
                       <span class="note-text color-white mt--20">No ads, No trails, No commitments</span>
 
                       <div class="row row--15 mt--50">
-                          <!-- Start Single Counter -->
+                          <!-- Start Single Counter 
                           <div class="col-lg-3 offset-lg-3 col-md-6 col-sm-6 single-counter">
                               <div class="rbt-counterup rbt-hover-03 style-2 text-color-white">
                                   <div class="inner">
@@ -1384,9 +1384,7 @@
                                   </div>
                               </div>
                           </div>
-                          <!-- End Single Counter -->
 
-                          <!-- Start Single Counter -->
                           <div class="col-lg-3 col-md-6 col-sm-6 single-counter mt_mobile--30">
                               <div class="rbt-counterup rbt-hover-03 style-2 text-color-white">
                                   <div class="inner">
@@ -1399,13 +1397,13 @@
                                   </div>
                               </div>
                           </div>
-                          <!-- End Single Counter -->
+                    
                       </div>
                   </div>
               </div>
           </div>
       </div>
-  </div>
+  </div> -->
 
 </main>
 

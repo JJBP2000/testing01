@@ -22,6 +22,7 @@ import { CourseEditComponent } from './modules/course/course-edit/course-edit.co
 import { CourseDeleteComponent } from './modules/course/course-delete/course-delete.component';
 import { CourseListsComponent } from './modules/course/course-lists/course-lists.component';
 
+
 function appInitializer(authService: AuthService) {
   return () => {
     return new Promise((resolve) => {
@@ -32,7 +33,7 @@ function appInitializer(authService: AuthService) {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

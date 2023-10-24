@@ -42,7 +42,6 @@ export class HomeComponent implements OnInit{
       this.CATEGORIES = resp.categories;
       this.COURSES_HOME = resp.courses_home.data;
       this.group_courses_categories = resp.group_courses_categories;
-      console.log(this.group_courses_categories);
       this.DESCOUNT_BANNER = resp.DESCOUNT_BANNER;
       this.DESCOUNT_BANNER_COURSES = resp.DESCOUNT_BANNER_COURSES;
       this.DESCOUNT_FLASH = resp.DESCOUNT_FLASH;
